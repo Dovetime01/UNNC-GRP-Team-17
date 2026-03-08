@@ -1,21 +1,13 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "VPWorkflowIntelligence.h"
+#include "SVPWorkflowIntelligencePanel.h"
 #include "VPWorkflowIntelligenceStyle.h"
 #include "VPWorkflowIntelligenceCommands.h"
-#include "LlamaService.h"
-#include "Misc/MessageDialog.h"
 #include "ToolMenus.h"
-#include "SlateBasics.h"
-#include "CoreMinimal.h"
+#include "Framework/Docking/TabManager.h"
+#include "Widgets/Docking/SDockTab.h"
 #include "Modules/ModuleManager.h"
-
-#include "Editor/Blutility/Classes/EditorUtilityWidget.h"
-#include "Editor/UMGEditor/Public/WidgetBlueprint.h"
-#include "Editor/LevelEditor/Public/LevelEditor.h"
-#include "Editor/Blutility/Public/IBlutilityModule.h"
-#include "Editor/Blutility/Classes/EditorUtilityWidgetBlueprint.h"
-#include <Editor/Blutility/Public/EditorUtilitySubsystem.h>
 
 static const FName VPWorkflowIntelligenceTabName("VPWorkflowIntelligence");
 
@@ -37,6 +29,8 @@ void FVPWorkflowIntelligenceModule::StartupModule()
 		FExecuteAction::CreateRaw(this, &FVPWorkflowIntelligenceModule::PluginButtonClicked),
 		FCanExecuteAction());
 
+	EnsureTabSpawnerRegistered();
+
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FVPWorkflowIntelligenceModule::RegisterMenus));
 }
 
@@ -49,6 +43,11 @@ void FVPWorkflowIntelligenceModule::ShutdownModule()
 
 	UToolMenus::UnregisterOwner(this);
 
+	if (FGlobalTabmanager::Get()->HasTabSpawner(VPWorkflowIntelligenceTabName))
+	{
+		FGlobalTabmanager::Get()->UnregisterNomadTabSpawner(VPWorkflowIntelligenceTabName);
+	}
+
 	FVPWorkflowIntelligenceStyle::Shutdown();
 
 	FVPWorkflowIntelligenceCommands::Unregister();
@@ -56,71 +55,33 @@ void FVPWorkflowIntelligenceModule::ShutdownModule()
 
 void FVPWorkflowIntelligenceModule::PluginButtonClicked()
 {
-	const FString TestModelPath = TEXT("C:/Users/dylon/Documents/Unreal Projects/Pico/Plugins/VPWorkflowIntelligence/Source/ThirdParty/llama.cpp/models/Qwen3.5-4B-Q4_K_M (1).gguf");
-	const double InitializeStartTime = FPlatformTime::Seconds();
+	EnsureTabSpawnerRegistered();
+	FGlobalTabmanager::Get()->TryInvokeTab(VPWorkflowIntelligenceTabName);
+}
 
-	FLlamaService LlamaService;
-	const bool bInitializeSucceeded = LlamaService.Initialize(TestModelPath);
-	const double InitializeDurationSeconds = FPlatformTime::Seconds() - InitializeStartTime;
-
-	if (bInitializeSucceeded)
+void FVPWorkflowIntelligenceModule::EnsureTabSpawnerRegistered()
+{
+	if (FGlobalTabmanager::Get()->HasTabSpawner(VPWorkflowIntelligenceTabName))
 	{
-		const FString SuccessMessage = FString::Printf(
-			TEXT("FLlamaService::Initialize succeeded in %.2f s"),
-			InitializeDurationSeconds);
-
-		UE_LOG(LogTemp, Log, TEXT("%s. Model: %s"), *SuccessMessage, *LlamaService.GetModelPath());
-		GEngine->AddOnScreenDebugMessage(-1, 8.f, FColor::Green, SuccessMessage);
-
-		const FString TestPrompt = TEXT("请用一句简短的话介绍你自己。请用中文回答。");
-		const double GenerateStartTime = FPlatformTime::Seconds();
-		const FString GeneratedText = LlamaService.Generate(TestPrompt);
-		const double GenerateDurationSeconds = FPlatformTime::Seconds() - GenerateStartTime;
-
-		UE_LOG(LogTemp, Log, TEXT("FLlamaService::Generate finished in %.2f s. Prompt: %s"), GenerateDurationSeconds, *TestPrompt);
-		UE_LOG(LogTemp, Log, TEXT("FLlamaService::Generate response: %s"), *GeneratedText);
-		GEngine->AddOnScreenDebugMessage(-1, 12.f, FColor::Cyan, FString::Printf(TEXT("Generate done in %.2f s"), GenerateDurationSeconds));
-
-		LlamaService.Shutdown();
-	}
-	else
-	{
-		const FString FailureMessage = FString::Printf(
-			TEXT("FLlamaService::Initialize failed: %s"),
-			*LlamaService.GetLastError());
-
-		UE_LOG(LogTemp, Error, TEXT("%s"), *FailureMessage);
-		GEngine->AddOnScreenDebugMessage(-1, 12.f, FColor::Red, FailureMessage);
 		return;
 	}
 
-	FString vpWidgetPath = "/VPWorkflowIntelligence/UI/hh.hh";
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Button Clicked: %s"), *vpWidgetPath));
+	FGlobalTabmanager::Get()->RegisterNomadTabSpawner(
+		VPWorkflowIntelligenceTabName,
+		FOnSpawnTab::CreateRaw(this, &FVPWorkflowIntelligenceModule::OnSpawnPluginTab))
+		.SetDisplayName(LOCTEXT("VPWorkflowIntelligenceTabTitle", "VP Workflow Intelligence"))
+		.SetMenuType(ETabSpawnerMenuType::Hidden)
+		.SetIcon(FSlateIcon(FVPWorkflowIntelligenceStyle::GetStyleSetName(), "VPWorkflowIntelligence.PluginAction"));
+}
 
-	// ��ȡ Editor Utility Subsystem
-	if (!GEditor)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("GEditor is null!"));
-		return;
-	}
-
-	UEditorUtilitySubsystem* EditorUtilitySubsystem = GEditor->GetEditorSubsystem<UEditorUtilitySubsystem>();
-	if (!EditorUtilitySubsystem)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("EditorUtilitySubsystem not found!"));
-		return;
-	}
-
-	// ���� Editor Utility Widget Blueprint
-	UEditorUtilityWidgetBlueprint* WidgetBlueprint = Cast<UEditorUtilityWidgetBlueprint>(StaticLoadObject(UEditorUtilityWidgetBlueprint::StaticClass(), nullptr, *vpWidgetPath));
-	if (!WidgetBlueprint)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Widget Blueprint not found at path: %s"), *vpWidgetPath));
-		return;
-	}
-
-	// ��������ʾ Editor Utility Widget
-	EditorUtilitySubsystem->SpawnAndRegisterTab(WidgetBlueprint);
+TSharedRef<SDockTab> FVPWorkflowIntelligenceModule::OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs)
+{
+	return SNew(SDockTab)
+		.TabRole(ETabRole::NomadTab)
+		.Label(LOCTEXT("VPWorkflowIntelligencePanelLabel", "VP Workflow Intelligence"))
+		[
+			SNew(SVPWorkflowIntelligencePanel)
+		];
 }
 
 void FVPWorkflowIntelligenceModule::RegisterMenus()

@@ -42,6 +42,8 @@ public class VPWorkflowIntelligence : ModuleRules
 				"Projects",
 				"VPWorkflowIntelligenceLLM",
 				"InputCore",
+				"ApplicationCore",
+				"DesktopPlatform",
 				"EditorFramework",
 				"UnrealEd",
 				"ToolMenus",

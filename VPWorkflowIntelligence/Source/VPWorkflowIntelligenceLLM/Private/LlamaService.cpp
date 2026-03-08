@@ -14,7 +14,7 @@
 
 namespace
 {
-	constexpr int32 DefaultMaxGeneratedTokens = 128;
+	constexpr int32 DefaultMaxGeneratedTokens = 64;
 	constexpr int32 DefaultTopK = 40;
 	constexpr float DefaultTopP = 0.90f;
 	constexpr float DefaultTemperature = 0.70f;

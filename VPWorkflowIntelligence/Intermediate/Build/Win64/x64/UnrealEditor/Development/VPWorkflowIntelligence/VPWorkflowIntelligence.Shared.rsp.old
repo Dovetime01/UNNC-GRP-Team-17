@@ -307,6 +307,11 @@
 /external:W0
 /external:I "ThirdParty\GuidelinesSupportLibrary\GSL-1144\include"
 /external:I "ThirdParty\RapidJSON\1.1.0"
+/external:I "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Source\ThirdParty\llama.cpp\include"
+/external:I "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Source\ThirdParty\llama.cpp\ggml\include"
+/external:I "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Source\ThirdParty\llama.cpp\src"
+/external:I "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Source\ThirdParty\llama.cpp\ggml\src"
+/external:I "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Source\ThirdParty\llama.cpp\ggml\src\ggml-cpu"
 /external:I "ThirdParty\LibTiff\Source\Win64"
 /external:I "ThirdParty\LibTiff\Source"
 /external:I "ThirdParty\OpenGL"

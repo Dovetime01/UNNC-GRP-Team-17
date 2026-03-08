@@ -38,6 +38,7 @@
 /NOIMPLIB
 "C:\Users\dylon\Documents\Unreal Projects\Pico\Intermediate\Build\Win64\x64\PicoEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
 "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligence\Module.VPWorkflowIntelligence.cpp.obj"
+"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligence\SVPWorkflowIntelligencePanel.cpp.obj"
 "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligence\VPWorkflowIntelligence.cpp.obj"
 "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligence\VPWorkflowIntelligenceCommands.cpp.obj"
 "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligence\VPWorkflowIntelligenceStyle.cpp.obj"
@@ -49,6 +50,8 @@
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\Projects\UnrealEditor-Projects.lib"
 "C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligenceLLM\UnrealEditor-VPWorkflowIntelligenceLLM.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\InputCore\UnrealEditor-InputCore.lib"
+"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\ApplicationCore\UnrealEditor-ApplicationCore.lib"
+"..\Intermediate\Build\Win64\x64\UnrealEditor\Development\DesktopPlatform\UnrealEditor-DesktopPlatform.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\EditorFramework\UnrealEditor-EditorFramework.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\UnrealEd\UnrealEditor-UnrealEd.lib"
 "..\Intermediate\Build\Win64\x64\UnrealEditor\Development\ToolMenus\UnrealEditor-ToolMenus.lib"
@@ -88,6 +91,8 @@
 "Advapi32.lib"
 "User32.lib"
 "Shell32.lib"
+"uiautomationcore.lib"
+"DXGI.lib"
 /OUT:"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Binaries\Win64\UnrealEditor-VPWorkflowIntelligence.dll"
 /PDB:"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Binaries\Win64\UnrealEditor-VPWorkflowIntelligence.pdb"
 /ignore:4078

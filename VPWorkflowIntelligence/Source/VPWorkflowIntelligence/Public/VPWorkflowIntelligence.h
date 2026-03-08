@@ -6,6 +6,8 @@
 
 class FToolBarBuilder;
 class FMenuBuilder;
+class SDockTab;
+class FSpawnTabArgs;
 
 class FVPWorkflowIntelligenceModule : public IModuleInterface
 {
@@ -19,6 +21,8 @@ public:
 	void PluginButtonClicked();
 	
 private:
+	void EnsureTabSpawnerRegistered();
+	TSharedRef<SDockTab> OnSpawnPluginTab(const FSpawnTabArgs& SpawnTabArgs);
 
 	void RegisterMenus();
 

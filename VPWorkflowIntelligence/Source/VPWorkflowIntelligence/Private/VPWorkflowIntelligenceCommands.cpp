@@ -6,7 +6,7 @@
 
 void FVPWorkflowIntelligenceCommands::RegisterCommands()
 {
-	UI_COMMAND(PluginAction, "VPWorkflowIntelligence", "Execute VPWorkflowIntelligence action", EUserInterfaceActionType::Button, FInputChord());
+	UI_COMMAND(PluginAction, "VP Workflow Intelligence", "Open the VP Workflow Intelligence panel", EUserInterfaceActionType::Button, FInputChord());
 }
 
 #undef LOCTEXT_NAMESPACE
