@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-VPWorkflowIntelligenceLLM.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\dylon\Documents\Unreal Projects\Pico\Intermediate\Build\Win64\x64\PicoEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligenceLLM\Module.VPWorkflowIntelligenceLLM.cpp.obj"
+"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligenceLLM\LlamaService.cpp.obj"
+"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligenceLLM\VPWorkflowIntelligenceLLM.cpp.obj"
+"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligenceLLM\Default.rc2.res"
+/OUT:"C:\Users\dylon\Documents\Unreal Projects\Pico\Plugins\VPWorkflowIntelligence\Intermediate\Build\Win64\x64\UnrealEditor\Development\VPWorkflowIntelligenceLLM\UnrealEditor-VPWorkflowIntelligenceLLM.lib"

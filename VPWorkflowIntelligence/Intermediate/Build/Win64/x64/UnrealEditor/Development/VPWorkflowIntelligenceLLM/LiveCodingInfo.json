@@ -1,0 +1,10 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.VPWorkflowIntelligenceLLM.cpp.obj": [
+			"PerModuleInline.gen.cpp.obj",
+			"LlamaService.cpp.obj",
+			"VPWorkflowIntelligenceLLM.cpp.obj"
+		]
+	}
+}

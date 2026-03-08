@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\dylon\\documents\\unreal projects\\pico\\plugins\\vpworkflowintelligence\\source\\vpworkflowintelligencellm\\private\\vpworkflowintelligencellm.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\dylon\\documents\\unreal projects\\pico\\intermediate\\build\\win64\\x64\\picoeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\dylon\\documents\\unreal projects\\pico\\plugins\\vpworkflowintelligence\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\vpworkflowintelligencellm\\definitions.vpworkflowintelligencellm.h",
+            "c:\\users\\dylon\\documents\\unreal projects\\pico\\plugins\\vpworkflowintelligence\\source\\vpworkflowintelligencellm\\public\\vpworkflowintelligencellm.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
