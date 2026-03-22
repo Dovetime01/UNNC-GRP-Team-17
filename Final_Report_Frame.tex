@@ -1,0 +1,331 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage{booktabs}
+\geometry{margin=1in}
+\onehalfspacing
+
+\renewcommand{\bibname}{References}
+
+\begin{document}
+
+%=========================
+% COVER PAGE
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    % University Logo Placeholder
+    %\includegraphics[width=0.4\textwidth]{university_logo.png}\par
+    %\vspace{1cm}
+    
+    {\large\bfseries COMP2043.GRP Interim Group Report\par}
+    \vspace{1.5cm}
+    
+    % University slogan placeholder
+    {\Large \textbf{Integrating Artificial Intelligence (AI) and Virtual Production (VP) workflows in implementing and testing a framework for Chinese short films with international appeal}\par}
+    \vspace{1cm}
+    
+    % Team Number
+    {\Large \textbf{Team 17}\par}
+    \vspace{0.4cm}
+    
+    % Team Crew
+    \begin{spacing}{1.2}
+    \large\textbf{Qingyang Liu (sayql5) 20617232} \\
+    \large\textbf{Liangli Wang (scylw2) 20616381} \\
+    \large\textbf{Youyang Wu (scyyw26) 20616341} \\
+    \large\textbf{Houpu Song (scyhs6) 20617167} \\
+    \large\textbf{Haoyi Jiang (scyhj6) 20617498} \\
+    \end{spacing}
+    \vspace{1cm}
+    
+    % Supervisors
+    {\Large Supervised by\par}
+    \begin{spacing}{1.5}
+    \large\textbf{Prof. Dave TOWEY} \\
+    \large\textbf{Dr. Nazia ANWAR} \\
+    \end{spacing}
+    
+    \vfill
+    {\large University of Nottingham Ningbo China \par}
+    \vspace{0.15cm}
+    {\large \today\par}
+\end{titlepage}
+
+
+%=========================
+% Abbreviations
+\newpage
+\addcontentsline{toc}{section}{Abbreviations}
+\begin{spacing}{2}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{center}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll@{}}
+        	\toprule
+        \large{\textbf{Abbreviation}} & \large{\textbf{Full Term}} \\
+        \midrule
+        	\textbf{ARRI} & Arnold \& Richter Cine Technik \\
+        	\textbf{DoP} & Director of Photography \\
+        	\textbf{ICVFX} & In-Camera Visual Effects \\
+        	\textbf{LOD} & Level of Detail \\
+        	\textbf{SRS} & Software Requirements Specification \\
+        	\textbf{SE} & Software Engineering \\
+        	\textbf{TET} & Technical Equipment Team \\
+        	\textbf{UE / UE5} & Unreal Engine (Version 5) \\
+        	\textbf{VAD} & Virtual Art Department \\
+        	\textbf{VP}  & Virtual Production \\
+        % Add more as needed...
+        \bottomrule
+    \end{tabular*}
+    \end{center}
+    \renewcommand{\arraystretch}{1}
+\end{spacing}
+
+
+
+%=========================
+% TABLE OF CONTENTS
+\newpage
+\begin{spacing}{1.8}
+    \tableofcontents
+\end{spacing}
+\newpage
+
+\maketitle
+
+\begin{abstract}
+This report documents the Software Engineering (SE) team's involvement in a Virtual Production (VP) project throughout the pre-production and production phases. The team served as 3D Artists, collaborating closely with the adviser teacher, Virtual Art Department (VAD), Technical Equipment Team (TET), and Director of Photography (DoP).
+
+During pre-production, the team constructed virtual sets and assets based on stakeholder-provided concept art and layout references. Using Unreal Engine (UE 5.5.4) and Blender, key assets such as the room's window were modeled with non-reflective frames and light-diffusing glass to meet the stakeholder requirements specified in the signed Software Requirements Specification (SRS). The team adopted agile development methodology, delivering iterative progress through weekly sprints aligned with the film crew's regular production meetings. Project management was facilitated using Monday.com, with Kanban boards and Gantt charts for task tracking and timeline planning.
+
+Following the formal shoot, the team identified an on-set challenge: aligning the virtual set with physical props during filming. This led to the design of a UE plugin — initially conceived as part of a broader "VP Workflow Intelligence" framework aimed at automating equipment parameter adjustments — but scoped to a single functional implementation due to time constraints.
+
+The Open Educational Resource (OER) produced alongside this project serves to capture the team's experiential knowledge of the VP workflow, enabling future teams to continue exploring workflow automation. The team argues that refining the VP Workflow Intelligence design philosophy can help minimize post-production issues — such as focus errors or missing props — by proactively addressing them earlier in the production pipeline.
+\end{abstract}
+
+\chapter{Introduction}
+
+This chapter provides a brief overview of the project's origin, delineates its scope, and outlines the overall structure of this report.
+
+\section{Project Context}
+Our stakeholders have a wealth of experience in leveraging traditional filmmaking techniques to produce internationally appealing short films. As far as we know, they completed production
+on a 15-minute short film \textit{Half the World is Sleeping} early in April 2024 \cite{half_the_world_is_sleeping}. In the second half of the year, they will move forward with the implementation of Virtual Production (VP) as well as the integration of AI for searching for inspiration and tackling the challenges of novel filmmaking technology.
+\\\\
+As defined in existing research, VP highlights the power of `virtualising technologies' to create digital environments in, and through which film can be made \cite{willment_swords_2023_vp}. Consequently, this project primarily aims to develop a virtual production environment where 3d models of props and sets can be dynamically designed, controlled, and animated to support film or live performance production, which serves as the core part of VP framework to replace traditional filmmaking workflow as traditional physical set construction is costly, inflexible, and time-consuming. 
+\\\\
+While current VP workflows require professionals to manage complex technical systems — creating a barrier between creative teams and technical operations — this project might also focus on bridging this gap by integrating our stakeholders' filmmaking expertise with cutting-edge AI technologies.
+
+\section{Core Objectives}
+Our stakeholders consist of a professional film crew with clear divisions of responsibility across their production team. During our initial engagement — where we joined their regular weekly production meeting — we were assigned the role of 3D Artists, which offered early insight into their primary needs in virtual set-related work. 
+And after discussions with key stakeholders, both our project role and their specific needs were clarified. This is marked as an essential step for us to ensure our further initiatives coordinating with them.
+\\\\
+Therefore, this project will be divided into two cycles, treating the film crew's filming stage in mid-January as a watershed:
+\begin{itemize}
+    \item Before that, our primary mandate is basically to deliver a realistic virtual set that meet their creative and production standard. 
+    \item After that period, we may focus on designing and integrating a framework to assist in the parameter adjustment of primary equipment.
+\end{itemize}
+As part of the VP film crew, our team mainly collaborates with:
+\begin{itemize}
+    \item Virtual Asset Designing Artist (VAD),
+    \item UE Operator / Technical Equipment Team (TET),
+    \item Director of Photography (DoP),
+\end{itemize}
+
+\section{Overview}
+This project is believed to be appealing to most of game geek \& cinephile. The framework this project aims to develop serves as the baseline for the integration of AI and VP workflows, which introduces issues of how to define the boundary between these two state-of-art technologies. There should be connections in-between, at the same time, this project is treated as a precious opportunity to collaborate with these experienced filmmakers.
+\\\\
+Chapter 2 will explore VP's current state, core technologies, and key concepts via background research.
+
+
+% 2. Project Context & Problem Definition
+\section{Project Context \& Problem Definition}
+
+\subsection{Shared Studio and Stakeholder Context}
+Our stakeholders are a professional film crew with extensive experience in traditional filmmaking, having completed a 15-minute short film \textit{Half the World is Sleeping} early in April 2024 \cite{half_the_world_is_sleeping}. The project operates within a state-of-the-art VP studio featuring real-time LED projection walls and ARRI Alexa 35 camera systems — positioning the studio at industry-standard levels. As defined in existing research, Virtual Production highlights the power of ``virtualising technologies'' to create digital environments in, and through which film can be made \cite{willment_swords_2023_vp}.
+
+The SE team was assigned the role of 3D Artists during initial engagement, collaborating primarily with:
+\begin{itemize}
+    \item Virtual Art Department (VAD) — responsible for asset design direction,
+    \item Technical Equipment Team (TET) — managing UE version control and technical specifications,
+    \item Director of Photography (DoP) — providing lighting and composition requirements.
+\end{itemize}
+
+\subsection{Two-Cycle Project Structure}
+The project is divided into two cycles, with the film crew's mid-January filming stage serving as the watershed:
+\begin{itemize}
+    \item \textbf{Cycle 1 (Pre-production):} Deliver realistic virtual sets and core assets meeting creative and production standards.
+    \item \textbf{Cycle 2 (Post-shoot):} Design and integrate a framework to assist in parameter adjustment of primary equipment.
+\end{itemize}
+
+\subsection{Requirements Refined Through Production Experience}
+Filmmaking stakeholders express needs in creative and abstract terms rather than concrete technical specifications. Throughout the project, requirements evolved based on:
+\begin{itemize}
+    \item Weekly production meetings where stakeholders adjusted content priorities based on creative direction,
+    \item Verbal discussions that required formal documentation through Dingtalk meeting recordings,
+    \item The mismatch between initial broad VP exploration and the actual focus on building a single Quarantine Room set.
+\end{itemize}
+This evolution necessitated an agile approach where requirements were continuously refined through production experience rather than fixed at project inception.
+
+
+% 3. Formal Shoot Findings: Alignment Challenges in a Small-Scale VP Studio
+\section{Formal Shoot Findings: Alignment Challenges in a Small-Scale VP Studio}
+
+The test shoot conducted in early December revealed critical on-set challenges that shaped the project's second-cycle focus.
+
+\subsection{The Virtual-Physical Alignment Problem}
+During filming, the team identified a fundamental challenge: ensuring precise alignment between virtual sets rendered on LED walls and physical props positioned on set. In a small-scale VP studio environment, this alignment is complicated by:
+\begin{itemize}
+    \item Limited physical space requiring precise camera tracking calibration,
+    \item The need for real-time synchronization between UE-rendered backgrounds and physical camera movements (parallax effect),
+    \item Discrepancies between virtual asset dimensions and physical prop placements.
+\end{itemize}
+
+As established in the case study of \textit{The Mandalorian}, the concept of ``Lighting from the Source'' demonstrates how LED walls emit actual light of the virtual environment onto actors — but this integration requires exact positional alignment to maintain visual coherence \cite{b8}.
+
+\subsection{Technical Constraints Identified}
+From the Technical Equipment Team's UE asset specification document (refer to Figure \ref{fig:UE_spec}), several constraints emerged:
+\begin{itemize}
+    \item Level of Detail (LOD) requirements: each LOD level must reduce triangle count by over 50\%,
+    \item Naming conventions and unit unification across all assets,
+    \item Compatibility with existing version control systems (Perforce) used by TET.
+\end{itemize}
+
+The prevalence of close-up shots indoors demanded exceptionally high model detail, while room proportions required meticulous control — deviations would severely affect authenticity during filming.
+
+\subsection{Implications for VP Workflow Intelligence}
+These findings underscored the need for a systematic approach to alignment that could:
+\begin{itemize}
+    \item Reduce manual calibration time during on-set setup,
+    \item Ensure consistency across multiple shooting days,
+    \item Bridge the gap between creative decisions and technical execution.
+\end{itemize}
+This directly informed the design objectives for the UE plugin developed in Cycle 2.
+
+
+% 4. UE Plugin Development for On-Set Alignment Support 
+\section{UE Plugin Development for On-Set Alignment Support}
+
+\subsection{Design Objective of the UE Plugin}
+The UE plugin was conceived as the initial implementation of a broader ``VP Workflow Intelligence'' framework — aimed at automating VP equipment parameter adjustments to enhance studio collaboration efficiency. However, due to time constraints, the implementation was scoped to a single critical function: aligning virtual and physical sets during live production.
+
+The design objectives were:
+\begin{itemize}
+    \item Provide real-time feedback on misalignment between virtual assets and physical props,
+    \item Integrate seamlessly with existing TET version control workflows (Perforce),
+    \item Support the DoP's camera trajectory deployment by ensuring accurate spatial correspondence.
+\end{itemize}
+
+\subsection{Methodology and Core Support Functions}
+\subsubsection{Technical Stack}
+\begin{itemize}
+    \item \textbf{Unreal Engine 5.5.4:} Selected for its robust rendering engine, photorealistic visuals, and Blueprint-enabled interactive UI capabilities \cite{wll1}.
+    \item \textbf{Blender:} Used for 3D modeling of assets (window, curtains, furniture) imported into UE \cite{wll2}.
+    \item \textbf{Tripo AI:} Utilized for rapid generation of base assets from text prompts, accelerating the asset pipeline \cite{wll3}.
+    \item \textbf{Perforce:} Version control system handling large binary assets with atomic commits and file locking \cite{wll4}.
+\end{itemize}
+
+\subsubsection{Core Functionality}
+The plugin implements three primary support functions:
+
+\textbf{1. Spatial Calibration Module:}
+Leveraging UE's tracking data integration, the module compares physical camera position (captured via OptiTrack/Vicon systems) against virtual camera placement, providing visual indicators when misalignment exceeds threshold values.
+
+\textbf{2. Asset-Position Synchronization:}
+Using Behavior Tree and Animation Notifies, the plugin defines trigger logic — for example, collision sensors on virtual doors detect opening actions, sending signals to curtain animation controllers for synchronized movement with physical counterparts.
+
+\textbf{3. Real-Time Feedback Interface:}
+Blueprint-enabled UI overlays provide on-set operators with immediate visual feedback, reducing the need for iterative test shots and enabling faster setup between takes.
+
+\subsubsection{Agile Development Approach}
+The team adopted agile methodology with weekly sprint cycles aligned to stakeholder production meetings. Task management was handled through Monday.com, using Kanban boards for workflow visualization (\textit{Done, Working On It, Preparing, Not Started, Stuck}) and Gantt charts for timeline planning (refer to Figures \ref{fig:Kanban} and \ref{fig:Gantt}). This approach enabled iterative refinement based on continuous stakeholder feedback.
+
+
+% 5. Experience Transfer Through OER 
+\section{Experience Transfer Through Open Educational Resource (OER)}
+
+The Open Educational Resource (OER) produced alongside this project serves as a critical vehicle for knowledge transfer, addressing the experiential learning gaps identified during the project.
+
+\subsection{Motivation for OER Development}
+Several challenges encountered during the project highlighted the need for structured experience transfer:
+\begin{itemize}
+    \item \textbf{Unfamiliarity with software:} All team members lacked prior UE/Blender experience, leading to initial delays in asset creation and scene optimization.
+    \item \textbf{Passive learning patterns:} The team initially relied on leader guidance instead of proactive learning, prompting the implementation of peer-led ``micro-learning'' sessions.
+    \item \textbf{Undocumented requirements:} Verbal discussions without formal documentation led to inconsistent understanding among team members.
+    \item \textbf{Ethics checklist oversight:} The team initially overlooked data privacy risks, identified only during advisor review — underscoring the need for systematic peer validation.
+\end{itemize}
+
+\subsection{OER Content and Structure}
+The OER documents:
+\begin{itemize}
+    \item \textbf{Technical workflows:} Step-by-step guides for virtual asset creation in Blender and UE 5.5.4, including material setup, dynamic lighting, and scene optimization.
+    \item \textbf{Integration protocols:} Procedures for synchronizing with TET's Perforce version control and UE asset specifications.
+    \item \textbf{Alignment plugin documentation:} Complete implementation details of the UE plugin, enabling future teams to extend its functionality.
+    \item \textbf{Lessons learned:} Reflections on requirements management with creative stakeholders, sprint planning, and team collaboration gaps.
+\end{itemize}
+
+\subsection{OER as Foundation for VP Workflow Automation}
+By capturing the team's experiential knowledge, the OER enables future SE teams to:
+\begin{itemize}
+    \item Build upon the VP Workflow Intelligence framework,
+    \item Avoid repeating the same learning curve with UE/Blender,
+    \item Extend the plugin's functionality to address broader automation goals.
+\end{itemize}
+The OER thus represents a sustainable contribution to the VP research community, supporting continued exploration of workflow automation.
+
+
+% 6. Discussion
+\section{Discussion}
+
+\subsection{Reflections on the Two-Cycle Structure}
+The two-cycle project structure proved effective in aligning technical development with production milestones. The pre-production cycle (virtual set construction) successfully delivered assets meeting stakeholder expectations, as evidenced by the signed SRS (refer to \hyperref[app:SRS_signed]{Appendix C}) and ongoing collaboration with TET. The post-shoot cycle (plugin development) addressed real production needs identified during formal testing, demonstrating the value of experience-driven requirements refinement.
+
+\subsection{Limitations and Constraints}
+Several factors constrained the project's scope:
+\begin{itemize}
+    \item \textbf{Time constraints:} The mid-January filming deadline limited the plugin implementation to a single alignment function, rather than the full VP Workflow Intelligence framework.
+    \item \textbf{Technical learning curve:} First-time use of UE and Blender consumed significant development time that could otherwise have been allocated to advanced automation features.
+    \item \textbf{Single-room set limitation:} The film's indoor Quarantine Room setting restricted demonstration of VP's full capabilities (e.g., expansive environments, complex camera movements).
+\end{itemize}
+
+\subsection{Ethical Considerations}
+The team initially overlooked data privacy risks in the ethics checklist — identified only during advisor review. This underscores the need for systematic peer validation in compliance tasks, particularly when working with creative stakeholders where data collection practices may not be immediately obvious.
+
+\subsection{Towards VP Workflow Intelligence}
+The project's central insight is that post-production issues (e.g., focus errors, missing props) can be minimized by proactively addressing them earlier in the production pipeline. The VP Workflow Intelligence philosophy advocates for:
+\begin{itemize}
+    \item Real-time alignment feedback during shooting,
+    \item Automated parameter adjustment to reduce manual calibration,
+    \item Integration of AI tools (e.g., Tripo) for rapid asset iteration.
+\end{itemize}
+While the current implementation focused on a single alignment function, it establishes a foundation for broader automation.
+
+% 7. Conclusion 
+\section{Conclusion}
+
+This report documents the SE team's comprehensive involvement in a VP project spanning pre-production and production phases. The team successfully delivered virtual sets and assets meeting stakeholder requirements, developed a UE plugin addressing on-set alignment challenges, and produced an OER to transfer experiential knowledge to future teams.
+
+Key contributions include:
+\begin{itemize}
+    \item Demonstration of agile development methodology adapted for creative stakeholder contexts,
+    \item Implementation of an alignment plugin as the initial step toward VP Workflow Intelligence,
+    \item Documentation of challenges and lessons learned for the VP research community.
+\end{itemize}
+
+The OER serves as a foundation for future exploration of VP workflow automation. The team argues that refining the VP Workflow Intelligence design philosophy can help minimize post-production issues by proactively addressing them earlier in the production pipeline — a direction that future projects can build upon using the resources and insights documented herein.
+
+
+% References
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
+
+
