@@ -1,0 +1,195 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+%Template version as of 6/27/2024
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{Virtual Production for Small-Scale Interior Scenes: On-Set Alignment Support and OER-Based Knowledge Transfer\\
+% {\footnotesize \textsuperscript{*}Note: Sub-titles are not captured for https://ieeexplore.ieee.org  and
+% should not be used}
+% \thanks{Identify applicable funding agency here. If none, delete this.}
+}
+
+% \IEEEauthorblockN{1\textsuperscript{st} Given Name Surname}
+% \IEEEauthorblockA{\textit{dept. name of organization (of Aff.)} \\
+% \textit{name of organization (of Aff.)}\\
+% City, Country \\
+% email address or ORCID}
+
+\author{
+\IEEEauthorblockN{
+Qingyang Liu\IEEEauthorrefmark{1},
+Liangli Wang\IEEEauthorrefmark{1},
+Youyang Wu\IEEEauthorrefmark{1},
+Houpu Song\IEEEauthorrefmark{1},
+Haoyi Jiang\IEEEauthorrefmark{1},
+Dave Towey\IEEEauthorrefmark{1},
+Nazia Anwar\IEEEauthorrefmark{1},\\
+Filippo Gilardi\IEEEauthorrefmark{2},
+Levi Dean\IEEEauthorrefmark{2},
+Lynne Chen\IEEEauthorrefmark{2},
+Zhaoxin Zhi\IEEEauthorrefmark{2}
+}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}\textit{Faculty of Science and Engineering, University of Nottingham Ningbo China}, Ningbo, China}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}\textit{Faculty of Humanities and Social Sciences, University of Nottingham Ningbo China}, Ningbo, China}
+\IEEEauthorblockA{\{sayql5, scylw2, scyyw26, scyhs6, scyhj6\}@nottingham.edu.cn}
+\IEEEauthorblockA{\{Lynne.Chen\}@nottingham.edu.cn}
+}
+
+\maketitle
+
+\begin{abstract}
+[placeholder]
+% Virtual Production (VP) transforms filmmaking by replacing physical set construction with real-time digital environments, while Artificial Intelligence (AI) addresses bottlenecks in 3D asset creation and technical optimization—critical for short films pursuing international appeal. This paper presents a scalable AI-VP integration framework developed for a university-led short film production, centered on In-Camera Visual Effects (ICVFX) and generative AI. We detail requirements engineering, agile system design, and prototype development that meet industry ICVFX standards. The framework reduces AI-assisted asset creation time and resolves cross-disciplinary collaboration gaps between software engineering and filmmaking teams. Empirical validation demonstrates the framework's practicality for small to medium-sized film projects, allowing short films to achieve international production quality with limited resources.
+\end{abstract}
+
+\begin{IEEEkeywords}
+[placeholder]
+\end{IEEEkeywords}
+
+\section{Introduction}
+% VP as workflow transformation + small-scale VP is experience-intensive
+% Project context + full participation + requirements refined through formal shoot
+% Paper focus + contributions + total argument
+With the rapid evolution of technology in the film industry, virtual production (VP) is increasingly recognized not merely as a real-time visualization technique, but as a workflow transformation that reshapes the interaction between pre-production, production, and post-production \cite{Swords2024it} \cite{SilvaJasaui2024}. It incorporates some of the decision-making that is previously postponed to later stages into earlier \cite{Swords2024agenda}, and more closely linked different phases of production by allowing digital assets to be visualized and modified during filming. This is particularly essential for VP projects centered on small-scale scenes, especially interior settings, where close-up interaction between virtual and real items is unavoidable inside a single shot \cite{Lam2025}. In such cases, realism relies not simply on the quality of the virtual assets, but on whether physical props, lighting logic, and spatial relationships can be maintained coherently during filming.
+
+This is the context of our project. Working with a university-based VP film crew, we participated across almost the full workflow of a short-film project, from virtual environment (VE) construction in pre-production, through formal shooting, to post-production support. In the first project cycle, we prioritized the immediate technical requirements of the project, particularly designing and creating the virtual scene based on their existing assets in Unreal Engine (UE). However, as recent studies on virtual production suggest, even extensive pre-production cannot fully eliminate all technical and workflow risks, because the integration of VE, physical production elements, and cross-departmental decision-making produces challenges that often emerge only during real-time shooting \cite{Swords2024it} \cite{willment2024skills}.
+
+Notably, the formal shooting stage, as a cyclical milestone of this project, refined our understanding of on-set requirements by revealing recurring difficulties in maintaining alignment between the VE and the physical set. These misalignment issues, such as spatial alignment of virtual assets and lighting and shadow consistency, can be detected visually by audiences but proved time-consuming for UE operators to resolve under production conditions \cite{colorLED}. From a software engineering perspective, these observations helped identify on-set calibration as a requirement for more targeted tool support in a VP project \cite{colorreproductionLED}. In response, the second cycle initially aimed to develop a UE-based plugin guided by a workflow-intelligence perspective to support this process, although time constraints ultimately narrowed the scope to a single, more concrete function.
+
+At the same time, we noticed that much of the VP workflow knowledge generated through this project remained highly experience-dependent and difficult to formalize. This motivated us to treat open educational resources (OER) not simply as supplementary documentation, but as a means of preserving and transferring project experience for future design of the conceptual VP workflow \cite{UNESCO2019OER}. This paper therefore argues that, in VP projects centered on small-scale interior virtual scenes, production experience is itself a critical source of workflow knowledge: it refines technical requirements through on-set practice, reveals where targeted software support is most needed, and motivates the structured preservation of such knowledge through OER.
+
+% 1. Introduction (~0.75p)
+% 2. Project Context & Problem Definition (～0.5p)
+% 	2.1 Shared studio and stakeholder context
+% 	2.2 Two-cycle project structure
+% 	2.3 Requirements Refined Through Production Experience
+%         - Filmmaking stakeholders
+%         - They evolve, hence the requirements are not stable.
+% Therefore, requirements should not be viewed as a “one-time exercise”， but as an ongoing process of alignment
+% 3. Formal Shoot Findings: Alignment Chanllenges in a Small-Scale VP Studio (~1.5p)
+% 4. UE Plugin Development for On-Set Alignment Support (~1.25p)
+% 	4.1 Design objective of the UE plugin
+% 	4.2 Methodology and core support functions
+% 5. Experience Transfer Through OER (~0.75p)
+% 6. Discussion (0.5-0.75p)
+% 7. Conclusion (~0.25p)
+
+\section{Project Context and Problem Definition}
+% Where did this project take place, and with whom?
+% How was the project structured over time?
+% How did production experience reshape the requirements?
+\subsection{Shared studio and stakeholder context}
+This project was conducted in the University of Nottingham Ningbo China's ARRI virtual production and motion-capture studio, the same studio environment examined in earlier work on VP at the university (Figure \ref{fig:studio}) \cite{Lam2025}. As Dean et al. note, the UNNC studio is modest in scale but technically comparable to larger VP studios, indicating that the core systems remain similar even if workflow configuration becomes more sensitive to spatial constraint and project demands \cite{Dean2026workflow}. Notably, based on this premise, they also point out that in a small-scale VP Studio mainly used for teaching, the spatial proximity between the LED volume and the camera actually places higher demands on virtual assets, which aligns with our observations discussed later in this paper.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{img/on-set-srgb.png}
+\caption{The UNNC ARRI VP studio.}
+\label{fig:studio}
+\end{figure}
+
+The stakeholder context was therefore inherently cross-disciplinary: our team operated within a wider production ecology involving the core film crew, the technical equipment team (TET), and key creative decision-makers such as the Director of Photography. This arrangement was continuous with earlier VP collaborations in the same studio \cite{Lam2025}, so the project inherited not only an existing technical environment but also an evolving stakeholder structure in which expectations and workflow priorities had to be negotiated across departments.
+
+\subsection{Two-cycle Project Structure}
+The project was structured into two main cycles around the formal shoot in mid-January, which served as a key production milestone. The first cycle focused on pre-production support and the initial development of the virtual environment, which represented the stakeholders' most immediate requirement. This phase involved iterative design and testing in Unreal Engine, with an emphasis on the style, texture, position and scale of the virtual assets to be perfectly aligned with production and creative requirements. During this period, we attended the film crew's weekly meetings, which enabled regular refinement of virtual set design in response to stakeholders' feedback. This ensured agile development practices while continuously adapting to their evolving requirements. The second cycle was triggered by the formal shoot, which revealed specific technical challenges related to on-set alignment. In response, this phase shifted toward the development of a targeted UE plugin to support on-set calibration, while OER design and implementation proceeded in parallel to support experience transfer. 
+
+\subsection{Requirements Refined Through Production Practice}
+At the beginning of the project, stakeholder requirements were fragmented rather than systematized and therefore could not be treated as fully specified. Before making a formal response, the team conducted a feasibility study alongside an assessment of its technical capacity and project timeline. Requirements elicitation then continued through stakeholder meetings and the film crew's weekly meetings, allowing virtual asset and VE requirements to be refined iteratively. As the first cycle progressed, these requirements became sufficiently concrete to be consolidated into a signed SRS, which formalized the project's phased objectives and aligned the team with stakeholder priorities and TET's technical asset specifications. However, the formal shoot showed that the second-cycle assumptions captured in the SRS still required refinement. What had initially been framed as a broader real-time device configuration control system was narrowed, under the combined pressure of project time constraint and in response to on-set experience, to a more urgent and feasible objective: a UE plugin to support on-set virtual and physical set alignment. In this sense, the requirements were not fixed after specification, but continued to evolve through production practice within a wider cross-departmental workflow \cite{Swords2024it,Dean2026workflow}.
+
+
+\section{Formal Shoot Findings: Alignment Challenges in a Small-Scale VP Studio}
+\subsection{Formal shoot as a moment of requirement refinement}
+The formal shoot functioned as a critical point of requirement refinement rather than a mere validation stage of the VE. Although in the first project cycle, the film crew had already produced a floor plan with a workable VE, the live production context revealed coordination problems that were not fully visible in pre-production documentation alone. This observation is consistent with recent VP research, which argues that real-time integration across departments often exposes practical constraints that cannot be completely anticipated through planning in advance \cite{Swords2024it,willment2024skills,Dean2026workflow}. It also aligns with accounts of VP as a workflow in which pre-production, shooting, and post-production become more tightly linked and parallel than in conventional linear pipelines \cite{SilvaJasaui2024}. In our case, this became especially apparent because the film's interior scenes were staged in a compact VP studio, where the distance between the LED volume, physical props, and camera was limited. As earlier work in the same studio context suggests, such small-scale VP setups can intensify interaction between virtual and physical elements and therefore place greater pressure on the maintenance of realism \cite{Lam2025,Dean2026workflow}.
+
+\subsection{Spatial and lighting interdependence in confined VP scenes}
+The most important finding from the formal shoot was that alignment problems emerged as a cluster of interdependent spatial and lighting issues rather than as isolated technical faults. This supports broader accounts of VP studio environments as tightly coupled systems in which display technology, camera logic, lighting behavior, and live-action staging must be coordinated together \cite{Kavakli2022studio}. In our case, the floor plan remained a useful reference, but on-set practice still required repeated adjustment under live conditions, suggesting that previs and techvis can guide coordination without eliminating the need for further production-stage adaptation \cite{Kadner2019,Dean2026workflow}.
+
+In particular, the team relied on level snapshots in UE to encapsulate scene-specific virtual lighting setups across shots, which is practical to record the positions of nDisplay and various light actors in UE. Yet consistency remained difficult to maintain once physical lighting, ambient conditions, and shot-specific changes interacted with the virtual background \cite{Kavakli2022studio}. For example, the effect of ambient light on physical sets in VP studio can be influenced by weather conditions, which cannot be completely avoided even with blackout curtains. Besides, although the scene could be reconstructed on set through prior notes and coordination across departments, further adjustments were still required during filming in response to changing conditions and creative decisions \cite{Dean2026workflow}. In practice, changes to the position or intensity of one light source often required coordinated adjustment across related virtual lighting elements in order to preserve visual consistency \cite{Kavakli2022studio,Kadner2019}. Manual tuning of diffuse reflection could improve wall texture and image depth, but such adjustments proved unstable and often required recalibration during filming. A further complication was bright edge flickering on some virtual assets, especially metallic surfaces under stronger light ratios, which made it tricky to maintain a coherent visual match between the virtual and physical scene.
+
+This interdependence became even clearer in shadow handling. Because the virtual background was projected as part of the same visual space as the physical set, shadows cast by physical props needed to remain logically consistent with the virtual environment. In practice, this often required the creation of ``fake'' shadows in UE by creating a static mesh that is invisible at runtime and manually calibrating against the position of the physical shadow on set. While workable, this process lacked parameter-level precision and occasionally produced perspective inconsistencies. These observations support the argument that, in small-scale interior virtual scenes, realism depends not only on asset quality but also on the close coordination of spatial relationships, lighting behavior, and the interaction between real and virtual objects \cite{Lam2025,Dean2026workflow}.
+
+\subsection{Exposure calibration as a cross-system coordination problem}
+Another technical detail showed in formal shoot is that exposure consistency was not reducible to any single parameter. Different shots required different combinations of camera transmission and exposure index settings, but these image decisions were also affected by LED screen brightness and the exposure-related controls within UE's post-processing pipeline. As a result, the practical problem was not merely how to adjust one value, but how to establish a reliable calibration priority across camera, LED wall, and engine settings. Existing work on LED-based VP stages similarly emphasizes that image consistency depends on coordinated management across multiple linked systems rather than isolated corrections at one point in the pipeline \cite{colorLED,colorreproductionLED}. For our project, the formal shoot made this dependency operationally visible.
+
+\subsection{Implications for workflow and tool design}
+Taken together, these findings suggest that the core challenge of the formal shoot was the difficulty of maintaining stable alignment between virtual and physical elements under live production conditions. The key issue is not how to avoid real-time on-set adjustments, but how to support it through more precise control and selective workflow automation, thereby ensuring that the core creative team's intentions can be more robustly translated into technical execution. This observation motivated the second cycle's focus on the design of a UE plugin to support on-set alignment, which was intended to provide more targeted control on UE operator's end over the calibration of virtual and physical elements.
+
+
+\section{UE Plugin Development for On-Set Alignment Support}
+\subsection{Design Rationale}
+Since the alignment problems revealed during the formal shoot arose directly from engine-level lighting, display, and calibration decisions within the existing ICVFX workflow, a UE plugin offered the most immediate and workflow-consistent point of intervention, rather than an external control system \cite{EpicICVFXDocs}. Due to the time constraints of the project, the design objective was more to provide a possible pathway to the implementation of a more intelligent VP workflow support tool, rather than to deliver a robust and comprehensive solution to the alignment problem.
+
+
+
+\subsection{Implementation of the UE Plugin}
+% UE5.5.4, C++ Project, Visual Studio 2022, UE Live Coding, UE Slate framework, UE NNERuntimeORT \& NNERuntimeBasicCpu plugins, UE LiDAR Point Cloud plugin
+Our core method involves utilizing deep learning-based monocular depth estimation technology to obtain depth information from the system's single input image through real-time inference of an ONNX model. We then perform a simple 3D reconstruction to convert this depth information into a 3D point cloud model. After that, through a simple post-processing layer, we smooth out unnecessary non-planar information in the point cloud model. Finally, we calibrate the point cloud model using nDisplay in the virtual scene as a reference. This establishes a fundamentally aligned spatial reference between the virtual and physical scenes.
+
+The plugin's main components are detailed as follows:
+
+\subsubsection{Monocular Depth Inference}
+The built-in UE plugin NNERuntimeORT provides the capability to perform ONNX-model inference at runtime in UE \cite{EpicNNERuntimeORT}. ONNX was the model format chosen for this project, as it was the only format that could match UE's real-time rendering context while also offering a more mature ecosystem \cite{ONNXIntro}. ONNX Runtime (ORT) is an open-source, cross-platform, high-performance inference engine specifically designed for inferencing models in this format \cite{ONNXRuntimeInference}. Therefore, Epic Games built NNERuntimeORT on top of ORT as a neural-network inference plugin for Unreal Engine \cite{EpicNNERuntimeORT}.
+
+The depth inference layer of our Virtual-Physical Calibration Plugin relied heavily on the \texttt{NNERuntimeORT} plugin. As for model selection, we used the metric version of Depth Anything V3-Large. Broadly speaking, there were two main reasons for this choice: first, the balance between inference performance and accuracy; second, the metric version of the model could provide absolute depth information, that is, depth values in real physical units, which was more suitable for our subsequent calibration in Unreal Engine.
+
+The depth inference layer of our Virtual-Physical Calibration Plugin relied heavily on the \texttt{NNERuntimeORT} plugin. For depth estimation, we selected Depth Anything 3 Metric Large (DA3METRIC-LARGE) for its superior performance \cite{DepthAnything3MetricLarge}. Broadly speaking, there were two main reasons for it:
+\begin{itemize}
+    \item The balance between inference performance and accuracy
+    \item Absolute depth information: The metric version of the model provides metric-scale depth information, which is essential for our subsequent calibration process in UE.
+\end{itemize}
+
+\subsubsection{Point-Cloud Reconstruction}
+The inferred depth map was converted into a 3D point-cloud representation through a lightweight back-projection process. Using the camera intrinsics, each valid depth pixel was mapped from image space into the camera coordinate system, producing a geometric approximation of the observed physical scene. In the plugin pipeline, this point cloud did not function as a final reconstruction output, but as an intermediate spatial representation for subsequent calibration against the virtual scene. It is important to note that the camera intrinsics used in this process needs to be manually calibrated and inputted into the plugin, which is a limitation of the current implementation due to technical compromises, but hopefully can be addressed in future iterations through integration with ICVFX camera's metadata.
+
+\subsubsection{Post-Processing and Spatial Calibration}
+To make the reconstructed geometry more suitable for alignment, a lightweight post-processing stage was introduced after point-cloud generation. Plane detection was first applied to identify the dominant planar structures in the reconstructed scene, so that large surfaces such as walls and the LED screen region could be extracted more reliably from the noisy depth-based point cloud \cite{Zhong2022PlaneSeg}. A Manhattan constraint was then imposed to regularize the scene toward the orthogonal spatial layout typical of indoor built environments, thereby suppressing unnecessary non-planar distortion and stabilizing the dominant geometric directions for subsequent calibration \cite{Guo2022Manhattan}. After this structural regularization, spatial calibration was performed through an ICP-based registration step \cite{Besl1992ICP}. In this stage, the nDisplay configuration in the UE virtual environment was used as the reference object corresponding to the LED screen in the reconstructed point-cloud model. More specifically, the LED-screen plane extracted from the physical scene was aligned to the nDisplay reference in the virtual scene, so that the point cloud and the virtual environment could share a common spatial frame. This alignment did not aim to recover a complete or fully accurate scene reconstruction, but to establish a sufficiently stable spatial reference for subsequent virtual-physical calibration within the plugin workflow.
+
+\subsection{Preliminary Testing and Evaluation}
+[placeholder]
+
+\section{Experience Transfer Through OER}
+[placeholder]
+
+
+\section{Discussion}
+Our experience also suggests that, for the specific post-production issues encountered in this project, currently available AI-based repair tools did not provide a sufficiently reliable substitute for better on-set prevention and workflow support.
+
+[placeholder]
+
+\section{Conclusion}
+[placeholder]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\vspace{12pt}
+
+
+\end{document}
