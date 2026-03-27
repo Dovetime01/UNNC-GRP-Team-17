@@ -1,0 +1,340 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage{booktabs}
+\geometry{margin=1in}
+\onehalfspacing
+
+\renewcommand{\bibname}{References}
+
+\begin{document}
+
+%=========================
+% COVER PAGE
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    % University Logo Placeholder
+    %\includegraphics[width=0.4\textwidth]{university_logo.png}\par
+    %\vspace{1cm}
+    
+    {\large\bfseries COMP2043.GRP Final Group Report\par}
+    \vspace{1.5cm}
+    
+    % University slogan placeholder
+    {\Large \textbf{Integrating Artificial Intelligence (AI) and Virtual Production (VP) workflows in implementing and testing a framework for Chinese short films with international appeal}\par}
+    \vspace{1cm}
+    
+    % Team Number
+    {\Large \textbf{Team 17}\par}
+    \vspace{0.4cm}
+    
+    % Team Crew
+    \begin{spacing}{1.2}
+    \large\textbf{Qingyang Liu (sayql5) 20617232} \\
+    \large\textbf{Liangli Wang (scylw2) 20616381} \\
+    \large\textbf{Youyang Wu (scyyw26) 20616341} \\
+    \large\textbf{Houpu Song (scyhs6) 20617167} \\
+    \large\textbf{Haoyi Jiang (scyhj6) 20617498} \\
+    \end{spacing}
+    \vspace{1cm}
+    
+    % Supervisors
+    {\Large Supervised by\par}
+    \begin{spacing}{1.5}
+    \large\textbf{Prof. Dave TOWEY} \\
+    \large\textbf{Dr. Nazia ANWAR} \\
+    \end{spacing}
+    
+    \vfill
+    {\large University of Nottingham Ningbo China \par}
+    \vspace{0.15cm}
+    {\large \today\par}
+\end{titlepage}
+
+
+%=========================
+% Abbreviations
+\newpage
+\addcontentsline{toc}{section}{Abbreviations}
+\begin{spacing}{2}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{center}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll@{}}
+        \toprule
+        \large{\textbf{Abbreviation}} & \large{\textbf{Full Term}} \\
+        \midrule
+        \textbf{ARRI} & Arnold \& Richter Cine Technik \\
+        \textbf{DoP} & Director of Photography \\
+        \textbf{ICVFX} & In-Camera Visual Effects \\
+        \textbf{LOD} & Level of Detail \\
+        \textbf{SRS} & Software Requirements Specification \\
+        \textbf{SE} & Software Engineering \\
+        \textbf{TET} & Technical Equipment Team \\
+        \textbf{UE / UE5} & Unreal Engine (Version 5) \\
+        \textbf{VAD} & Virtual Art Department \\
+        \textbf{VP} & Virtual Production \\
+        \bottomrule
+    \end{tabular*}
+    \end{center}
+    \renewcommand{\arraystretch}{1}
+\end{spacing}
+
+
+%=========================
+% TABLE OF CONTENTS
+\newpage
+\begin{spacing}{1.8}
+    \tableofcontents
+\end{spacing}
+\newpage
+
+
+%=========================
+% CHAPTER 1: INTRODUCTION
+\chapter{Introduction}
+
+\section{Project Context}
+
+\section{Core Objectives}
+
+\section{Overview}
+
+
+%=========================
+% CHAPTER 2: BACKGROUND RESEARCH
+\chapter{Background Research}
+
+\section{VP Pipelines \& ICVFX}
+
+\section{AI in VP}
+
+\section{Case Studies and Industry Practices}
+
+\section{UE Modules and Plugins}
+
+\section{Neural Network Engine in UE}
+The Neural Network Engine (NNE) in Unreal Engine serves as a standardized framework for executing deep learning models directly within the runtime environment. Similar to how game engines manage rendering, the NNE provides a common API to access different neural network runtimes (execution providers). This architecture allows developers to evaluate neural networks without the need for hardware-specific coding, enabling a seamless workflow from model import to real-time inference \cite{CT}.
+
+The implementation of NNE relies on four key elements that define its operational workflow:
+
+\paragraph{Interfaces:} Interfaces act as the accessible API layer for the engine, designed to cover specific use cases while keeping the system clean and descriptive. Rather than accessing a runtime directly, the engine uses Interface classes to determine the execution context. This allows developers to explicitly choose whether inference should occur on the CPU, asynchronously on the GPU, or tightly integrated within the Render Dependency Graph (RDG) for frame-synchronized rendering.
+
+\paragraph{Runtimes:} Runtimes are the plugin modules that implement the logic for one or more interfaces. They register themselves with the NNE system at startup and act as the bridge between the engine and the underlying hardware. By using a templated query system, developers can retrieve specific runtimes that support the required interface, ensuring that the project can dynamically adapt to the capabilities of the target hardware.
+
+\paragraph{Assets:} The NNE framework enables the direct import of neural network model files into Unreal Engine, creating NNE Model Data assets within the Content Browser. These assets serve as the container for the neural network data. During the project packaging (cooking) phase, these assets can be optimized for specific runtimes, allowing developers to strip out unused configurations to reduce package size and improve loading efficiency.
+
+\paragraph{Models:} A Model is the executable instance created from an NNE asset by a specific runtime. Once instantiated, the model typically contains immutable buffers for weights and parameters, which are shared across different instances to optimize memory usage. The system provides validation functions to check if a model can be successfully created on the current platform before execution, ensuring robust error handling during the inference process.
+
+Through this modular structure, the NNE provides maximum control over how and where neural network models are executed, facilitating complex AI-augmented features ranging from gameplay logic to editor-based artist tools.
+
+
+%=========================
+% CHAPTER 3: REQUIREMENTS ENGINEERING
+\chapter{Requirements Engineering}
+This chapter outlines the requirements engineering process that our team performed for the Software Requirements Specification (SRS).
+
+In the early stages, we primarily obtained information from stakeholder communications, which inevitably led to some ambiguities. For instance, it was not initially clear that we needed to align our Unreal Engine version with the one installed in the VP studio—a critical compatibility requirement without which our projects could not be imported for on-set testing.
+
+As our cooperation with the film crew deepened, we gained a better understanding of the stakeholders' actual needs and made targeted adjustments to our SRS accordingly.
+
+\section{Feasibility Study}
+
+Due to the fact that our stakeholders' primary needs were not based on a system and were rather fragmented, we planned to conduct feasibility study combined with the assessment of our abilities in practical before we made our formal response to our key stakeholder. The feasibility study was conducted from three perspectives: technical feasibility, device feasibility, and legal feasibility.
+
+\subsection{Technical Feasibility}
+
+The core virtual asset and scene construction requirements—including material and light adaptation of 3D models, as well as compatibility between virtual scenes and physical props—all fall within the conventional application scope of Unreal Engine 5. Additionally, part of the assets left over by the previous SE team can be reused.
+
+For AI-driven tool implementation, tools such as Tripo 3D were selected for generating base assets that meet the SRS's material and flexibility requirements. These assets are exported in FBX format for compatibility and imported into Unreal Engine 5. For non-functional requirements, Unreal Engine 5's built-in Level of Detail (LOD) generation tools can accurately meet performance requirements, and Hierarchical LOD (HLOD) construction tutorials are available for optimizing large-scale scenes.
+
+\subsection{Device Feasibility}
+
+The VP studio and laboratory at the university are equipped with the necessary computer hardware to meet the requirements of creating assets in Unreal Engine with the assistance of 3D modelling software such as Blender. The minimum recommended configuration for project participation includes: CPU I7-14700KF or higher, GPU RTX4060 or higher, and 32GB DDR5 RAM or higher.
+
+\subsection{Legal Feasibility}
+
+Regarding the copyright of AI-generated virtual assets, the Terms of Service of commercial asset generators generally state that paid users hold all rights to their inputs, outputs, and related intellectual property. Additionally, the risk of infringement can be reduced by marking relevant copyright information using annotation tools. For open-source considerations, it is recommended to verify the originality of models through reverse search before publication.
+
+\section{Requirements Elicitation}
+
+We conducted two formal meetings with our stakeholders for requirements elicitation. During this period, we also attended their weekly production meetings to discuss with other film crew members and gather information on their general design concepts.
+
+After we made our final response to the key stakeholder regarding their initial requirements—based on the conclusions drawn from the feasibility study—we began to focus on the style of the virtual assets they had requested. Subsequently, we received the final version of the virtual set layout as specific references for the basic design.
+
+\section{Requirements Specification}
+
+Most of the Software Requirements Specification (SRS) content was derived from the two stakeholder meetings and the Unreal Engine asset specification document provided by the Technical Equipment Team (TET), which served as a reference for our non-functional requirements.
+
+In late November, we conducted a requirements confirmation meeting with our key stakeholders (the executive director and one TET member). They signed the SRS, which serves as the guideline for our project's phased objectives.
+
+The project is broadly divided into two phases (cycles), with the mid-January filming stage serving as the dividing point:
+\begin{itemize}
+    \item \textbf{Phase 1 (Before Filming):} Focus on the design, refinement, and construction of virtual assets and virtual sets.
+    \item \textbf{Phase 2 (After Filming):} Shift focus to systematic requirements, primarily concerning the design of plugins for automated adjustment of VP equipment parameters to enhance VP studio collaboration efficiency.
+\end{itemize}
+
+The functional requirements specified in the SRS include:
+\begin{itemize}
+    \item \textbf{Core Virtual Assets Design \& Creation:} The 3D model of a window in the designed virtual set was regarded as a core virtual asset, requiring a white/gray frame with silver bars, avoiding strong reflections, and ensuring flexibility for lighting adaptation.
+    \item \textbf{Virtual Set Design:} The virtual set required enrichment with assets, with less critical assets postponed until after the filming week. Due to the flexible VP workflow, the film crew did not have a specialized storyboard design for each footage.
+    \item \textbf{Real-time Voice-Controlled Device Configuration System:} Planned for the post-production phase after the filming milestone.
+\end{itemize}
+
+The non-functional requirements specified in the SRS include:
+\begin{itemize}
+    \item \textbf{Performance:} Unreal Engine scenes must maintain visible draw calls within 8,000–12,000 per frame during on-set operation. All textures must use power-of-two resolutions. Each LOD level must reduce triangle count by at least 50\% compared to the previous level.
+    \item \textbf{Usability:} All imported assets must use centimeter units with correct pivot placement. File names, mesh names, material names, and texture names must use English alphanumeric characters only. Asset normals must face outward.
+    \item \textbf{Compatibility:} Unreal Engine 5.5.x must be used. All SE-created assets must be exported in FBX format with Z-up axis alignment. Materials must use UE-compatible PBR texture channels. Mesh topology must be clean with no overlapping faces or disconnected vertices.
+    \item \textbf{Portability:} All SE-developed plugins, scripts, and assets must be fully compatible with Windows-based UE5 workstations used on-set.
+\end{itemize}
+
+\section{Verification}
+
+During the meeting held on November 28th, our stakeholder representative reviewed, confirmed, and signed the hard copy of our SRS. Additionally, he provided a recap of the project's current progress and key specifics, reiterated core requirements, and clarified the exact deadline for our next deliverable.
+
+Notably, he emphasized the importance of our collaborative relationship with the Technical Equipment Team (TET), stressing that our virtual set construction work must be timely synchronized with their team—ensuring other departments within the film crew can accurately track and align with the project's progress.
+
+\section{Requirement Refinement}
+
+Throughout the project, requirements underwent refinement based on ongoing stakeholder feedback and evolving production needs. Key refinements included:
+
+\subsection{SRS v2.1}
+
+The initial SRS was refined to reflect changes identified during the requirements elicitation and feasibility analysis phases. Key updates included:
+
+\begin{itemize}
+    \item Clarification of the division between the two project phases, with the mid-January filming serving as the watershed.
+    \item Specification of the collaboration workflow with the Technical Equipment Team (TET), including version control system integration.
+    \item Refinement of non-functional requirements based on the UE asset specification document provided by TET.
+    \item Addition of detailed performance benchmarks, including draw call limits, texture resolution requirements, and LOD specifications.
+    \item Clarification of copyright and licensing considerations for AI-generated virtual assets.
+\end{itemize}
+
+The refined SRS was reviewed and signed by stakeholders, establishing a clear framework for the project's phased deliverables and quality standards.
+
+
+%=========================
+% CHAPTER 4: RECORD OF KEY IMPLEMENTATION DECISIONS
+\chapter{Record of Key Implementation Decisions}
+
+\section{Hardware (mainly PCs)}
+
+\section{Software}
+
+\subsection{UE 5.5.4}
+
+\subsection{Blender}
+
+\subsection{Tripo}
+
+\subsection{Perforce}
+
+\subsection{Overleaf}
+
+\subsection{UE Modules and Plugins Utilized}
+
+\subsubsection{NNERuntimeORT / NNERuntimeBasicCpu, LiDAR Point Cloud}
+
+
+%=========================
+% CHAPTER 5: IMPLEMENTATION AND DEVELOPMENT
+\chapter{Implementation and Development}
+
+\section{Virtual Set}
+
+\subsection{Key Assets}
+
+\subsection{Virtual Lighting}
+
+\section{Virtual-Physical Set Calibration Support Tool}
+
+\subsection{Design Objectives}
+
+\subsection{Functional Scope and Implementation}
+
+\subsection{Major System Components}
+
+\subsection{Source Code Hierarchy}
+
+\section{OER Design}
+
+
+%=========================
+% CHAPTER 6: TESTING AND VERIFICATION
+\chapter{Testing and Verification}
+
+\section{Virtual Environment Testing}
+
+\section{UE Plugin Testing}
+
+\section{Verification}
+
+
+%=========================
+% CHAPTER 7: REFLECTION
+\chapter{Reflection}
+
+\section{Challenges}
+
+\subsection{Requirements Management Issues}
+
+\subsection{Technical Issues (design \& quality)}
+
+\subsection{Sprint Planning Challenges}
+
+\subsection{Team Collaboration Gaps}
+
+\subsection{Testing Environment And Practical Evaluation Issues}
+
+\section{Project Time Plan}
+
+\subsection{First Cycle}
+
+\subsubsection{Agile Development}
+
+\subsection{Second Cycle}
+
+\subsection{Feedback}
+
+
+%=========================
+% CHAPTER 8: CONCLUSION AND RECOMMENDATIONS
+\chapter{Conclusion and Recommendations}
+
+\section{Project Summary}
+
+\section{Strengths \& Limitations}
+
+\subsection{On-set VP Experience}
+
+\subsection{Future Work}
+
+
+%=========================
+% APPENDICES
+\appendix
+
+\chapter{Minutes}
+
+\chapter{SRS}
+
+\chapter{User Manual of The Developed System}
+
+\chapter{Testing Strategies of The System (test cases, outcomes, etc.)}
+
+
+%=========================
+% REFERENCES
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
