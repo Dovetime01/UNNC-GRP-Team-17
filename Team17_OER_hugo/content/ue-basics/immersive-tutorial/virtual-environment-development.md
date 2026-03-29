@@ -5,7 +5,7 @@ weight: 15
 series: ["Immersive Tutorial Foundations"]
 series_order: 2
 categories: ["Immersive Tutorial"]
-tags: ["virtual-environment", "virtual-production", "modeling", "ue5"]
+tags: ["virtual-environment", "virtual-production", "modeling", "Unreal-Engine"]
 showDate: false
 ---
 

@@ -5,7 +5,7 @@ weight: 30
 series: ["VP Workflow Foundations"]
 series_order: 3
 categories: ["VP Workflow", "AI Support"]
-tags: ["ai", "asset-generation", "tripo", "3d-scanning", "on-set", "emergent-requirements"]
+tags: ["AI", "asset-generation", "tripo", "3d-scanning", "on-set", "emergent-requirements"]
 showDate: false
 ---
 

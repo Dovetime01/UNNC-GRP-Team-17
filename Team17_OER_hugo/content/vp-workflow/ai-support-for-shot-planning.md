@@ -5,7 +5,7 @@ weight: 20
 series: ["VP Workflow Foundations"]
 series_order: 2
 categories: ["VP Workflow", "AI Support"]
-tags: ["ai", "shot-planning", "review"]
+tags: ["AI", "shot-planning", "review"]
 showDate: false
 ---
 
