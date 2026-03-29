@@ -1,0 +1,22 @@
+# Hugo generated output
+public/
+resources/
+
+# Dependency directories
+.jekyll-cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.sublime-*
+
+# Build files
+hugo.toml.backup
+*.bak

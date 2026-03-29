@@ -1,0 +1,25 @@
+disabled = false
+languageCode = "en"
+languageName = "English"
+weight = 1
+title = "OER"
+
+[params]
+  displayName = "EN"
+  isoCode = "en"
+  rtl = false
+  dateFormat = "2 January 2006"
+  logo = "img/team17.png"
+  secondaryLogo = "img/team17d.png"
+  description = "OER for VP teams working in Unreal Engine"
+  # copyright = "Copy, _right?_ :thinking_face:"
+
+[params.author]
+  name = "Team 17 - OER"
+  image = "img/cinema.png"
+  imageQuality = 96
+  headline = "For these virtual production teams working in Unreal Engine."
+  bio = "We document practical VP workflows, foundational Unreal Engine decisions, UE plus Blender handoffs, and previs scene packaging standards."
+  links = [
+    { github = "https://github.com/Dovetime01/UNNC-GRP-Team-17" }
+  ]

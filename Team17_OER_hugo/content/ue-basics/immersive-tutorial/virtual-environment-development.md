@@ -1,0 +1,120 @@
+---
+title: "Virtual Environment Development"
+description: "Workflows for building virtual scenes—from style and blocking to assets, materials, optimization, and LED review—with a wall placement walkthrough."
+weight: 15
+series: ["Immersive Tutorial Foundations"]
+series_order: 2
+categories: ["Immersive Tutorial"]
+tags: ["virtual-environment", "virtual-production", "modeling", "ue5"]
+showDate: false
+---
+
+> **Attribution:** This content is adapted from [G10 Chapter 4: Virtual Environment Development](https://github.com/gektec/G10) by the team G10, used under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) license. We acknowledge and thank the original authors for their educational material on virtual environment development in Unreal Engine.
+
+## 1. Workflows of Developing Your Virtual Scenes
+
+First, to make a virtual scene, we need to determine the basic style of the scene, because style determines the choice of material texture when making a scene.
+
+In the second step, the ideal shooting angle and object distribution of the scene are determined. When constructing a virtual scene, the wrong object distribution often makes the visual effect of the scene greatly reduced. At the same time, a clear example of the scene diagram will make the virtual scene production more convenient and fast.
+
+The third step is to build the basic framework of the virtual scene. When making a virtual scene, not all the materials or materials need to be made by ourselves or found on the Internet. A maker can start by constructing an abstract virtual scene using basic shapes and models (such as cylinders for people, cuboids for walls or tables). The advantage of this is that it allows the producer to quickly build a mental picture of the actual scene that needs to be made, and at the same time, it is convenient for the stakeholders to correct the position of some objects.
+
+The fourth step is to find or create the assets. In most cases, the assets you can find on sites like Fab are good enough, but not enough to fully meet the needs of the scene. Therefore, what we need is to improve the material through secondary modeling modification on the basis of the original material, which requires the producer to have the ability to use modeling software, such as Blender. At the same time, the UE 5 version has added modeling mode, and some versions may need to download built-in plug-ins to use.
+
+The fifth step is to put in those materials and set the material (or decal) to make it achieve the initial visual effect. Up until this point, we can ignore the material effect. It's better if the source material has the right material, and if it doesn't, that's fine. Because in this step, we will make and distribute the material uniformly.
+
+The last step, the sixth, is to check how the scene looks on a real LED screen. We may need to fine-tune the position and size of the objects. It's also important to pay attention to the source file path and configuration compatibility in different UE versions.
+
+## 2. Tutorial of Developing a Virtual Environment
+
+This is followed by an example step of placing a wall:
+
+### 2.1 Creating a Wall Model Using Modeling Software
+
+1. **Open Modeling Software**: Launch your preferred 3D modeling tool (e.g., Blender, 3ds Max, etc.)
+2. **Create Basic Geometry**:
+   - Select the Cube tool and create a rectangular prism. ![Create Prism](/unreal_engine/CreatePrism.png)
+   - Adjust the dimensions to match the wall's real-world size (e.g., height 300cm, thickness 20cm, length as needed). ![Adjust Prism](/unreal_engine/AdjustPrism.png)
+3. **Refine the Model**:
+   - If door or window openings are needed, use Boolean operations to cut the wall.
+   - Ensure the model's topology is clean and avoid excessive polygons.
+4. **UV Unwrapping**:
+   - Create UV maps for the wall model to ensure proper material application in UE5.
+5. **Export the Model**:
+   - Export the model in FBX format (ensure "Smoothing Groups" and "Embed Textures" are checked).
+
+### 2.2 Importing the Wall Model into UE5
+
+1. **Open UE5 Project**:
+   - Launch Unreal Engine 5 and open your project or create a new one.
+2. **Import the Model**:
+   - Right-click in the Content Browser and select "Import to /Game."
+   - Choose the exported FBX file and click "Open."
+3. **Set Import Options**:
+   - In the import window, ensure "Import Materials" and "Import Textures" are checked.
+   - Adjust other settings as needed (e.g., scale, rotation).
+   - Click "Import" to complete the process. ![Import Model](/unreal_engine/ImportModel.png)
+
+### 2.3 Placing the Wall Model
+
+1. **Drag into the Scene**:
+   - Locate the imported wall model in the Content Browser and drag it into the scene.
+2. **Adjust Position and Rotation**:
+   - Use the Move tool (shortcut: W) to position the wall.
+   - Use the Rotate tool (shortcut: E) to adjust the wall's orientation.
+   - Use the Scale tool (shortcut: R) to resize the wall if necessary. ![Resize Wall](/unreal_engine/ResizeWall.png)
+3. **Align to the Ground**:
+   - Select the wall and press the End key to align it to the ground.
+   - If the End key doesn't work, manually adjust the Z-axis position or use snapping (hold V and drag vertices to align).
+4. **Duplicate and Arrange**:
+   - Hold Alt and drag the wall to quickly duplicate and arrange multiple walls.
+   - Use grid snapping (shortcut: Ctrl) to ensure proper alignment between walls.
+
+### 2.4 Adding Materials
+
+1. **Create a Material**:
+   - Right-click in the Content Browser and select "Material" to create a new material.
+   - Name the material (e.g., "Wall_Material"). ![Add Material](/unreal_engine/AddMaterial.png)
+2. **Edit the Material**:
+   - Double-click to open the Material Editor.
+   - Add a Texture Sample node and import wall textures (e.g., diffuse, normal, roughness).
+   - Connect the texture nodes to the material's Base Color, Normal, and Roughness inputs.
+   - Adjust material parameters (e.g., color, glossiness). ![Adjust Material](/unreal_engine/AdjustMaterial.png)
+3. **Apply the Material**:
+   - Drag the material from the Content Browser onto the wall model in the scene.
+   - If different parts of the wall need different materials, assign Material IDs in the modeling software and create material instances in UE5. ![Apply Material](/unreal_engine/ApplyMaterial.png)
+
+### 2.5 Lighting and Optimization
+
+1. **Add Lighting**:
+   - Place light sources in the scene (e.g., Directional Light, Point Light).
+   - Adjust the light's intensity and color to ensure the wall material displays correctly. ![Add Lighting](/unreal_engine/AddLighting.png) ![Add Lighting](/unreal_engine/AddLighting2.png)
+
+2. **Optimize Performance**:
+   - Set up LOD (Level of Detail) for the wall model to reduce polygon count at a distance. ![LOD](/unreal_engine/LOD.png)
+   - Use Occlusion Culling to optimize rendering performance (Enabled by default in UE5).
+
+### 2.6 Testing and Adjusting
+
+1. **Run the Scene**:
+   - Click the "Play" button in the toolbar to test the scene.
+   - Check the wall's position, material, and lighting effects. ![Run the Scene](/unreal_engine/Run.png)
+2. **Adjust Details**:
+   - Based on the test results, adjust the model's position, rotation, or scale.
+   - You may import some 1m*1m*1m blocks to check if your models are at the right scale.
+   - Modify material parameters or replace textures to improve visual quality.
+
+### 2.7 Saving the Project
+
+1. **Save the Scene**:
+   - Click the "Save" button in the toolbar to save the current scene. ![Save](/unreal_engine/Save.png)
+2. **Backup the Project**:
+   - Regularly back up project files to avoid data loss.
+
+## 3. Additional Tips
+
+- **Using BSP Tools for Quick Wall Creation**:
+  In UE5, you can use BSP (Binary Space Partitioning) tools to quickly create simple walls. In the Modes panel, select "BSP," drag out a box, adjust its size, and convert it to a static mesh.
+
+- **Using Quixel Bridge for High-Quality Materials**:
+  Import free Megascans materials via Quixel Bridge to quickly enhance the wall's visual quality.

@@ -1,0 +1,19 @@
+{{ define "main" }}
+  {{ .Scratch.Set "scope" "list" }}
+
+  <header class="mb-10">
+    <h1 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">{{ .Title }}</h1>
+    <div class="mt-2 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      {{ .Description }}
+    </div>
+  </header>
+
+  {{ $allPages := where site.RegularPages "Section" "ne" "" }}
+  {{ $sorted := sort $allPages "Title" }}
+
+  <section class="space-y-10 w-full">
+    {{ range $sorted }}
+      {{ partial "article-link/simple.html" . }}
+    {{ end }}
+  </section>
+{{ end }}

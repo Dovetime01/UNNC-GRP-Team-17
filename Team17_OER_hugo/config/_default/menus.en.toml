@@ -1,0 +1,112 @@
+# -- Main Menu --
+# The main menu is displayed in the header at the top of the page.
+# Acceptable parameters are name, pageRef, page, url, title, weight.
+# 
+# The simplest menu configuration is to provide:
+#   name = The name to be displayed for this menu link
+#   pageRef = The identifier of the page or section to link to
+#
+# By default the menu is ordered alphabetically. This can be
+# overridden by providing a weight value. The menu will then be
+# ordered by weight from lowest to highest.
+
+[[main]]
+ name = "VP Workflow"
+ pageRef = "vp-workflow"
+ weight = 10
+
+[[main]]
+ name = "UE Basics"
+ pageRef = "ue-basics"
+ weight = 20
+
+	[[main]]
+	name = "Scene Packaging"
+	parent = "UE Basics"
+	pageRef = "ue-basics/scene-packaging"
+	weight = 10
+
+	[[main]]
+	name = "Immersive Tutorial"
+	parent = "UE Basics"
+	pageRef = "ue-basics/immersive-tutorial"
+	weight = 20
+
+	[[main]]
+	name = "UE + Blender"
+	parent = "UE Basics"
+	pageRef = "ue-basics/ue-blender"
+	weight = 30
+
+[[main]]
+ name = "On-site Experience"
+ pageRef = "on-site-experience"
+ weight = 30
+
+ 	[[main]]
+	name = "Emergent Requirements"
+	parent = "On-site Experience"
+	pageRef = "on-site-experience/emergent-requirements"
+	weight = 10
+	
+	[[main]]
+	name = "Virtual Lighting"
+	parent = "On-site Experience"
+	pageRef = "on-site-experience/virtual-lighting"
+	weight = 20
+
+ [[main]]
+ name = "UE Plugin"
+ pageRef = "ue-plugin"
+ weight = 40
+
+ [[main]]
+ name = "All Articles"
+ pageRef = "all-articles"
+ weight = 50
+
+ 	[[main]]
+	name = "UE Modules & Plugins"
+	parent = "UE Plugin"
+	pageRef = "ue-plugin/prereq-kit/prereq-kit"
+	weight = 10
+	
+	[[main]]
+	name = "Plugin Development"
+	parent = "UE Plugin"
+	pageRef = "ue-plugin/plugin-dev"
+	weight = 20
+
+
+# [[subnavigation]]
+#  name = "Visit our GitHub"
+#  pre = "github"
+#  pageRef = "categories/awesome"
+#  weight = 10
+
+
+#[[main]]
+#  name = "Categories"
+#  pageRef = "categories"
+#  weight = 20
+
+#[[main]]
+#  name = "Tags"
+#  pageRef = "tags"
+#  weight = 30
+
+
+# -- Footer Menu --
+# The footer menu is displayed at the bottom of the page, just before
+# the copyright notice. Configure as per the main menu above.
+
+
+[[footer]]
+  name = "Resources"
+  pageRef = "placeholder-for-resources-page"
+  weight = 10
+
+[[footer]]
+  name = "Tags"
+  pageRef = "tags"
+  weight = 20
