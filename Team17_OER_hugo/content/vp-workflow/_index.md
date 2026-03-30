@@ -14,6 +14,8 @@ This section maps VP work from the perspective of Unreal Engine operations, hand
 
 By the end of this section, learners should be able to identify where Unreal Engine matters inside a VP workflow, what needs to be prepared before a shot is reviewed, and where AI can support planning without replacing production judgment.
 
+![Virtual Production Pipeline Overview — stages from pre-production through post-production, showing the role of AI agents and human decision points at each phase](/vp-workflow/vp-pipeline-overview.png)
+
 ## This Section Covers
 
 1. UE touchpoints inside the previs pipeline.

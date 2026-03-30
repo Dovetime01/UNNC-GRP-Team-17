@@ -35,6 +35,12 @@ Before internal review, the UE scene should already reflect [naming discipline](
 
 When a shot or scene is handed to another teammate, Unreal Engine becomes the container of record. Folder structure, actor naming, camera naming, and packaging discipline all determine whether the next person can move quickly or has to reconstruct intent.
 
+![Virtual Production Pipeline Overview — stages from pre-production through post-production, showing the role of AI agents and human decision points at each phase](/vp-workflow/vp-pipeline-overview.jpg)
+
+> *Workflow diagram illustrating the collaboration between the SE team and the Film Crew within the VP pipeline.*
+
+
+---
 ## Where AI Helps
 
 AI is most useful here as a support layer:
