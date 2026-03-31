@@ -102,9 +102,14 @@
 
 
 [[footer]]
+  name = "License"
+  url = "/LICENSE"
+  weight = 10
+
+[[footer]]
   name = "Resources"
   pageRef = "placeholder-for-resources-page"
-  weight = 10
+  weight = 20
 
 [[footer]]
   name = "Tags"

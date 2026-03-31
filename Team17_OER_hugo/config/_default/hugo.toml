@@ -16,6 +16,8 @@ buildFuture = false
 
 enableEmoji = true
 
+copyright = "&copy; {year} <a href=\"/\">UNNC GRP Team 17</a> &middot; <a rel=\"license\" href=\"/LICENSE\">CC BY 4.0</a>"
+
 # googleAnalytics = "G-XXXXXXXXX"
 
 [pagination]
