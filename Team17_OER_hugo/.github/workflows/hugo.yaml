@@ -3,6 +3,7 @@ name: Build and deploy
 on:
   push:
     branches:
+      - main
       - Final-Report
   workflow_dispatch:
 
