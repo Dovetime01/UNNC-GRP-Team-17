@@ -3,7 +3,7 @@
 # https://blowfish.page/docs/getting-started/
 
 theme = "blowfish"
-baseURL = "http://localhost:1313/"
+baseURL = "https://dovetime01.github.io/UNNC-GRP-Team-17/"
 defaultContentLanguage = "en"
 
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
@@ -41,6 +41,9 @@ enableEmoji = true
 [related]
   threshold = 0
   toLower = false
+
+[caches]
+  images = { dir = ":cacheDir/images" }
 
     [[related.indices]]
         name = "tags"
