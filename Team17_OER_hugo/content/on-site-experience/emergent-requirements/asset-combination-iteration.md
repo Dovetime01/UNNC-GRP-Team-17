@@ -23,7 +23,7 @@ The director wanted a window with two distinct visual elements: iron bars across
 
 The art direction began with a reference image found online that matched the director's description for the iron bars: solid, dark, period-appropriate in character. Therefore, we uploaded this image to [Tripo](/vp-workflow/ai-asset-generation/) to generate an initial 3D model.
 
-![Iron window frame](/asset-combination/iron-window.jpg)
+![Iron window frame](../../../asset-combination/iron-window.jpg)
 
 ---
 ### Step 2 — Sourcing base assets to build the window frames
@@ -40,7 +40,7 @@ The iron bar reference informed the placement of a separate bar element over the
 
 The assembled window matched the director's reference closely enough to pass an initial review.
 
-![Assembled window model — iron bars combined with cross-mullion wooden frame](/asset-combination/window-assembled1.jpg)
+![Assembled window model — iron bars combined with cross-mullion wooden frame](../../../asset-combination/window-assembled1.jpg)
 
 ---
 
@@ -48,7 +48,7 @@ The assembled window matched the director's reference closely enough to pass an 
 
 However, during the test shooting in the VP Studio, a new problem appeared. When the camera moved through the scene during playback, the iron bar geometry produced visible **flickering** — a strobing artifact caused by Z-fighting between overlapping surfaces in the rendering pipeline. This made the window unusable for production.
 
-![Z-fighting artifact on iron bars during camera movement](/asset-combination/window-flickering.jpg)
+![Z-fighting artifact on iron bars during camera movement](../../../asset-combination/window-flickering.jpg)
 
 The cause was high polygon density in the iron bar mesh. When rendered in real-time against the scene background, the overlapping geometry at slightly different depths confused the depth buffer, producing the flicker artifact. This is a common failure mode with high-density meshes in VP environments where camera movement exposes rendering edge cases that a static render would not.
 
@@ -60,8 +60,8 @@ The iron bar mesh was reworked by the UE technical lead. We adopted a new model 
 
 The revised mesh was re-imported and verified. The flicker was resolved and the window passed final review.
 
-![Final window model after polygon optimization — flicker resolved](/asset-combination/window-final1.jpg)
-![Final window model after polygon optimization — flicker resolved](/asset-combination/window-final2.jpg)
+![Final window model after polygon optimization — flicker resolved](../../../asset-combination/window-final1.jpg)
+![Final window model after polygon optimization — flicker resolved](../../../asset-combination/window-final2.jpg)
 
 ---
 

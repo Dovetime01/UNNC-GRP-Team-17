@@ -58,7 +58,7 @@ A plugin folder contains several standard directories plus the manifest. The fig
 
 <!-- Place your screenshot at static/ue-plugin/plugin-folder-structure.png (served as /ue-plugin/plugin-folder-structure.png). -->
 
-![Unreal Engine plugin root: Binaries, Config, Content, Intermediate, Resources, Source, and the .uplugin file](/ue-plugin/plugin-folder-structure.pic.jpg)
+![Unreal Engine plugin root: Binaries, Config, Content, Intermediate, Resources, Source, and the .uplugin file](../../ue-plugin/plugin-folder-structure.pic.jpg)
 
 - **Binaries** — Output of compilation: compiled binaries (for example `.dll` files on Windows) for your plugin’s modules.
 - **Config** — Optional plugin-specific configuration (defaults and settings scoped to this plugin).
