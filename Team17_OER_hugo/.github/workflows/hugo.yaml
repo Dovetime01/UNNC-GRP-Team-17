@@ -80,6 +80,7 @@ jobs:
       - name: Install Node.js dependencies
         run: |
           [[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true
+        working-directory: Team17_OER_hugo
 
       - name: Configure Git
         run: |
@@ -101,6 +102,7 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
+        working-directory: Team17_OER_hugo
 
       - name: Cache save
         id: cache-save
@@ -113,6 +115,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
+        working-directory: Team17_OER_hugo
 
   deploy:
     environment:
