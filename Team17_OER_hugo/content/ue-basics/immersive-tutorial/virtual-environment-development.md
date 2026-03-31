@@ -33,8 +33,8 @@ This is followed by an example step of placing a wall:
 
 1. **Open Modeling Software**: Launch your preferred 3D modeling tool (e.g., Blender, 3ds Max, etc.)
 2. **Create Basic Geometry**:
-   - Select the Cube tool and create a rectangular prism. ![Create Prism](/unreal_engine/CreatePrism.png)
-   - Adjust the dimensions to match the wall's real-world size (e.g., height 300cm, thickness 20cm, length as needed). ![Adjust Prism](/unreal_engine/AdjustPrism.png)
+   - Select the Cube tool and create a rectangular prism. ![Create Prism](../../../unreal_engine/CreatePrism.png)
+   - Adjust the dimensions to match the wall's real-world size (e.g., height 300cm, thickness 20cm, length as needed). ![Adjust Prism](../../../unreal_engine/AdjustPrism.png)
 3. **Refine the Model**:
    - If door or window openings are needed, use Boolean operations to cut the wall.
    - Ensure the model's topology is clean and avoid excessive polygons.
@@ -53,7 +53,7 @@ This is followed by an example step of placing a wall:
 3. **Set Import Options**:
    - In the import window, ensure "Import Materials" and "Import Textures" are checked.
    - Adjust other settings as needed (e.g., scale, rotation).
-   - Click "Import" to complete the process. ![Import Model](/unreal_engine/ImportModel.png)
+   - Click "Import" to complete the process. ![Import Model](../../../unreal_engine/ImportModel.png)
 
 ### 2.3 Placing the Wall Model
 
@@ -62,7 +62,7 @@ This is followed by an example step of placing a wall:
 2. **Adjust Position and Rotation**:
    - Use the Move tool (shortcut: W) to position the wall.
    - Use the Rotate tool (shortcut: E) to adjust the wall's orientation.
-   - Use the Scale tool (shortcut: R) to resize the wall if necessary. ![Resize Wall](/unreal_engine/ResizeWall.png)
+   - Use the Scale tool (shortcut: R) to resize the wall if necessary. ![Resize Wall](../../../unreal_engine/ResizeWall.png)
 3. **Align to the Ground**:
    - Select the wall and press the End key to align it to the ground.
    - If the End key doesn't work, manually adjust the Z-axis position or use snapping (hold V and drag vertices to align).
@@ -74,31 +74,31 @@ This is followed by an example step of placing a wall:
 
 1. **Create a Material**:
    - Right-click in the Content Browser and select "Material" to create a new material.
-   - Name the material (e.g., "Wall_Material"). ![Add Material](/unreal_engine/AddMaterial.png)
+   - Name the material (e.g., "Wall_Material"). ![Add Material](../../../unreal_engine/AddMaterial.png)
 2. **Edit the Material**:
    - Double-click to open the Material Editor.
    - Add a Texture Sample node and import wall textures (e.g., diffuse, normal, roughness).
    - Connect the texture nodes to the material's Base Color, Normal, and Roughness inputs.
-   - Adjust material parameters (e.g., color, glossiness). ![Adjust Material](/unreal_engine/AdjustMaterial.png)
+   - Adjust material parameters (e.g., color, glossiness). ![Adjust Material](../../../unreal_engine/AdjustMaterial.png)
 3. **Apply the Material**:
    - Drag the material from the Content Browser onto the wall model in the scene.
-   - If different parts of the wall need different materials, assign Material IDs in the modeling software and create material instances in UE5. ![Apply Material](/unreal_engine/ApplyMaterial.png)
+   - If different parts of the wall need different materials, assign Material IDs in the modeling software and create material instances in UE5. ![Apply Material](../../../unreal_engine/ApplyMaterial.png)
 
 ### 2.5 Lighting and Optimization
 
 1. **Add Lighting**:
    - Place light sources in the scene (e.g., Directional Light, Point Light).
-   - Adjust the light's intensity and color to ensure the wall material displays correctly. ![Add Lighting](/unreal_engine/AddLighting.png) ![Add Lighting](/unreal_engine/AddLighting2.png)
+   - Adjust the light's intensity and color to ensure the wall material displays correctly. ![Add Lighting](../../../unreal_engine/AddLighting.png) ![Add Lighting](../../../unreal_engine/AddLighting2.png)
 
 2. **Optimize Performance**:
-   - Set up LOD (Level of Detail) for the wall model to reduce polygon count at a distance. ![LOD](/unreal_engine/LOD.png)
+   - Set up LOD (Level of Detail) for the wall model to reduce polygon count at a distance. ![LOD](../../../unreal_engine/LOD.png)
    - Use Occlusion Culling to optimize rendering performance (Enabled by default in UE5).
 
 ### 2.6 Testing and Adjusting
 
 1. **Run the Scene**:
    - Click the "Play" button in the toolbar to test the scene.
-   - Check the wall's position, material, and lighting effects. ![Run the Scene](/unreal_engine/Run.png)
+   - Check the wall's position, material, and lighting effects. ![Run the Scene](../../../unreal_engine/Run.png)
 2. **Adjust Details**:
    - Based on the test results, adjust the model's position, rotation, or scale.
    - You may import some 1m*1m*1m blocks to check if your models are at the right scale.
@@ -107,7 +107,7 @@ This is followed by an example step of placing a wall:
 ### 2.7 Saving the Project
 
 1. **Save the Scene**:
-   - Click the "Save" button in the toolbar to save the current scene. ![Save](/unreal_engine/Save.png)
+   - Click the "Save" button in the toolbar to save the current scene. ![Save](../../../unreal_engine/Save.png)
 2. **Backup the Project**:
    - Regularly back up project files to avoid data loss.
 

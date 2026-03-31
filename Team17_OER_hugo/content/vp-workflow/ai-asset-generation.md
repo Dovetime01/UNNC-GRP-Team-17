@@ -28,7 +28,7 @@ This is not a replacement for modeled assets where precise geometry and controll
 
 **Practical consideration:** Tripo outputs still require a review pass. Imported meshes need scale checking, basic material assignment, and occasional vertex cleanup before they perform reliably in a real-time engine.
 
-![Tripo model output — IV stand generated from a single on-set photograph](/on-set-model-creation/tripo-output.jpg)
+![Tripo model output — IV stand generated from a single on-set photograph](../../../on-set-model-creation/tripo-output.jpg)
 
 ---
 
